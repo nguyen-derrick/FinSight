@@ -38,7 +38,8 @@ export function Tooltip({ content, children, className }: TooltipProps) {
         <span
           id={id}
           role="tooltip"
-          className="absolute left-1/2 z-50 mt-2 -translate-x-1/2 rounded-md border bg-popover px-3 py-2 text-xs text-popover-foreground shadow-lg"
+          className="pointer-events-none absolute left-1/2 z-50 mt-2 -translate-x-1/2 rounded-md border bg-popover px-3 py-2 text-xs text-popover-foreground shadow-lg"
+          style={{ minWidth: 180 }}
         >
           {content}
         </span>

@@ -38,7 +38,7 @@ export function Popover({ content, children, className }: PopoverProps) {
         <span
           id={id}
           role="tooltip"
-          className="absolute left-0 z-50 mt-2 min-w-[200px] rounded-md border bg-popover px-3 py-2 text-xs text-popover-foreground shadow-lg"
+          className="pointer-events-none absolute left-0 z-50 mt-2 min-w-[200px] rounded-md border bg-popover px-3 py-2 text-xs text-popover-foreground shadow-lg"
         >
           {content}
         </span>

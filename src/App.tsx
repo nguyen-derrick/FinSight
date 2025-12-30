@@ -302,6 +302,133 @@ const defaultState: AppState = {
       categoryId: 'cat_rent',
       accountId: 'acc_cheq',
     },
+    {
+      id: 't6',
+      date: '2025-09-08',
+      merchant: 'Farmers Market',
+      amountCents: 5600,
+      type: 'expense',
+      categoryId: 'cat_gro',
+      accountId: 'acc_cc',
+    },
+    {
+      id: 't7',
+      date: '2025-09-15',
+      merchant: 'Commuter Pass',
+      amountCents: 12000,
+      type: 'expense',
+      categoryId: 'cat_trans',
+      accountId: 'acc_cc',
+    },
+    {
+      id: 't8',
+      date: '2025-09-30',
+      merchant: 'Paycheque',
+      amountCents: 240000,
+      type: 'income',
+      categoryId: 'cat_income',
+      accountId: 'acc_cheq',
+    },
+    {
+      id: 't9',
+      date: '2025-10-10',
+      merchant: 'Dentist',
+      amountCents: 32000,
+      type: 'expense',
+      categoryId: 'cat_health',
+      accountId: 'acc_cheq',
+    },
+    {
+      id: 't10',
+      date: '2025-10-22',
+      merchant: 'Meal Prep',
+      amountCents: 18500,
+      type: 'expense',
+      categoryId: 'cat_gro',
+      accountId: 'acc_cc',
+    },
+    {
+      id: 't11',
+      date: '2025-10-31',
+      merchant: 'Paycheque',
+      amountCents: 240000,
+      type: 'income',
+      categoryId: 'cat_income',
+      accountId: 'acc_cheq',
+    },
+    {
+      id: 't12',
+      date: '2025-11-05',
+      merchant: 'Holiday Flights',
+      amountCents: 65000,
+      type: 'expense',
+      categoryId: 'cat_other',
+      accountId: 'acc_cc',
+      note: 'Family travel',
+    },
+    {
+      id: 't13',
+      date: '2025-11-18',
+      merchant: 'Grocery Stock-up',
+      amountCents: 42000,
+      type: 'expense',
+      categoryId: 'cat_gro',
+      accountId: 'acc_cc',
+    },
+    {
+      id: 't14',
+      date: '2025-11-28',
+      merchant: 'Black Friday Electronics',
+      amountCents: 98000,
+      type: 'expense',
+      categoryId: 'cat_other',
+      accountId: 'acc_cc',
+    },
+    {
+      id: 't15',
+      date: '2025-11-30',
+      merchant: 'Paycheque',
+      amountCents: 240000,
+      type: 'income',
+      categoryId: 'cat_income',
+      accountId: 'acc_cheq',
+    },
+    {
+      id: 't16',
+      date: '2025-12-03',
+      merchant: 'Gifts & Decor',
+      amountCents: 75000,
+      type: 'expense',
+      categoryId: 'cat_other',
+      accountId: 'acc_cc',
+    },
+    {
+      id: 't17',
+      date: '2025-12-12',
+      merchant: 'Dining Out',
+      amountCents: 28000,
+      type: 'expense',
+      categoryId: 'cat_eat',
+      accountId: 'acc_cc',
+    },
+    {
+      id: 't18',
+      date: '2025-12-20',
+      merchant: 'Charity Donation',
+      amountCents: 30000,
+      type: 'expense',
+      categoryId: 'cat_other',
+      accountId: 'acc_cheq',
+    },
+    {
+      id: 't19',
+      date: '2025-12-31',
+      merchant: 'Paycheque',
+      amountCents: 240000,
+      type: 'income',
+      categoryId: 'cat_income',
+      accountId: 'acc_cheq',
+    },
   ],
   settings: {
     currency: 'CAD',
@@ -1063,8 +1190,44 @@ export default function FinanceDashboardV2() {
 
             <div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-2">
               <Card className="rounded-2xl">
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-base">Cashflow</CardTitle>
+                <CardHeader className="pb-2 flex flex-col gap-1">
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-2">
+                      <CardTitle className="text-base">Cashflow</CardTitle>
+                      <MetricInfo
+                        title="Cashflow"
+                        definition="Inflow minus outflow over the selected date range."
+                        formula="Net cashflow = Income - Expenses in range."
+                      />
+                    </div>
+                    <Tooltip
+                      content={
+                        <div className="space-y-1">
+                          <div className="text-xs font-semibold">Range summary</div>
+                          <div className="text-xs text-muted-foreground">
+                            Inflow: {formatMoney(totals.income, currency, hideCents)}
+                          </div>
+                          <div className="text-xs text-muted-foreground">
+                            Outflow: {formatMoney(totals.expense, currency, hideCents)}
+                          </div>
+                          <div className="text-xs text-muted-foreground">
+                            Net: {formatMoney(totals.net, currency, hideCents)}
+                          </div>
+                          <div className="text-xs text-muted-foreground">
+                            MoM: {formatDeltaCurrency(totals.net - previousTotals.net, currency, hideCents)}
+                          </div>
+                        </div>
+                      }
+                    >
+                      <button
+                        type="button"
+                        className="inline-flex h-8 items-center gap-1 rounded-xl border border-border/60 px-2 text-xs text-muted-foreground transition hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                      >
+                        <Info className="h-4 w-4" />
+                        <span>Hover for details</span>
+                      </button>
+                    </Tooltip>
+                  </div>
                 </CardHeader>
                 <CardContent className="h-[220px] sm:h-[260px] lg:h-[320px]">
                   {cashflow.length === 0 ? (
@@ -1640,19 +1803,25 @@ function Header(props: {
   return (
     <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
       <div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-muted">
             <Wallet className="h-5 w-5" />
           </div>
-          <div>
-            <div className="text-xl font-semibold tracking-tight">Finance Dashboard</div>
-            <div className="text-sm text-muted-foreground">Budgeting and expense analytics</div>
+          <div className="space-y-1">
+            <div className="flex items-baseline gap-1 text-xl font-semibold tracking-tight">
+              <span>BudgetBoard</span>
+              <sup className="text-xs align-top">™</sup>
+            </div>
+            <div className="text-sm text-muted-foreground">Built by Derrick Nguyen</div>
           </div>
+        </div>
+        <div className="mt-2 text-lg font-semibold leading-tight text-foreground">
+          Budgeting &amp; Expense Analytics Dashboard
         </div>
       </div>
 
-      <div className="flex flex-col gap-2 md:flex-row md:items-center">
-        <div className="flex items-center gap-2">
+      <div className="flex flex-col gap-3 md:flex-row md:items-center">
+        <div className="flex flex-wrap items-center gap-2">
           <div className="relative">
             <Search className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
             <Input
@@ -1694,16 +1863,16 @@ function Header(props: {
 
         <div className="flex flex-wrap items-center gap-2">
           <ThemeToggle theme={props.theme} onToggle={props.onThemeChange} />
-          <Button onClick={props.onAddTx}>
+          <Button className="h-10" onClick={props.onAddTx}>
             <Plus className="mr-2 h-4 w-4" /> Add
           </Button>
-          <Button variant="secondary" onClick={props.onImport}>
+          <Button className="h-10" variant="secondary" onClick={props.onImport}>
             <Import className="mr-2 h-4 w-4" /> Import
           </Button>
-          <Button variant="secondary" onClick={props.onExport}>
+          <Button className="h-10" variant="secondary" onClick={props.onExport}>
             <Download className="mr-2 h-4 w-4" /> Export
           </Button>
-          <Button variant="ghost" className="rounded-2xl">
+          <Button className="h-10 rounded-2xl" variant="ghost">
             <Settings className="h-4 w-4" />
           </Button>
         </div>
