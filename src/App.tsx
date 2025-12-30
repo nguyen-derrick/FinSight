@@ -1438,8 +1438,8 @@ function Header(props: {
             <Wallet className="h-5 w-5" />
           </div>
           <div>
-            <div className="text-xl font-semibold tracking-tight">Finance Dashboard</div>
-            <div className="text-sm text-muted-foreground">Budgeting and expense analytics</div>
+            <div className="text-xl font-semibold tracking-tight">BudgetBoard Dashboard</div>
+            <div className="text-sm text-muted-foreground">Budgeting and Expense Analytics</div>
           </div>
         </div>
       </div>
